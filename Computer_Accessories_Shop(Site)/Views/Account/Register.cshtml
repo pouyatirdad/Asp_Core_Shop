@@ -1,0 +1,34 @@
+﻿@model Computer_Accessories_Shop.Api.ViewModel.Account.RegisterViewModel
+
+@{
+    Layout = "../shared/_layout.cshtml";
+}
+<div class="col-lg-4 offset-lg-1 p-t-b-25">
+    <div class="d-flex justify-content-center align-items-center m-b-20">
+    </div>
+    <div class="d-flex justify-content-center align-items-center m-b-20">
+        <h3 class="m-0">
+            ثبت نام
+        </h3>
+    </div>
+    <form asp-action="Register" asp-controller="Account" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mb-4">
+            <input type="text" class="form-control form-control-lg" placeholder="نام کاربری" asp-for="UserName" name="UserName">
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+          <div class="form-group mb-4">
+            <input type="text" class="form-control form-control-lg" placeholder="نام کاربری" asp-for="Email" name="Email">
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <input type="password" class="form-control form-control-lg" placeholder="رمز عبور" asp-for="Password" name="Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <input type="password" class="form-control form-control-lg" placeholder="رمز عبور" asp-for="RetypePassword" name="RetypePassword">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <button class="btn btn-primary btn-lg btn-block btn-uppercase mb-4" type="submit">ورود</button>
+    </form>
+</div>
