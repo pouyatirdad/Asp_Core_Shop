@@ -17,7 +17,6 @@
   <ItemGroup>
     <Folder Include="UploadedFiles\Images\" />
     <Folder Include="UploadedFiles\Temp\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
 
   <ItemGroup>

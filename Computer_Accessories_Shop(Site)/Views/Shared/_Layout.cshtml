@@ -1,48 +1,252 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Computer_Accessories_Shop_Site_</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Computer_Accessories_Shop_Site_</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+﻿
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Computer_Accessories_Shop_Site_ - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>@ViewData["Title"]</title>
+	<meta name="keywords" content="HTML5 Template">
+	<meta name="description" content="Molla - Bootstrap eCommerce Template">
+	<meta name="author" content="p-themes">
+	<link rel="shortcut icon" href="/images/icons/favicon.png">
+	<meta name="apple-mobile-web-app-title" content="Molla">
+	<meta name="application-name" content="Molla">
+	<meta name="msapplication-TileColor" content="#cc9966">
+	<meta name="msapplication-config" content="/images/icons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+	<link rel="stylesheet" href="/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/bootstrap-rtl.min.css">
+	<link rel="stylesheet" href="/css/plugins/owl-carousel/owl.carousel.css">
+	<link rel="stylesheet" href="/css/plugins/magnific-popup/magnific-popup.css">
+	<link rel="stylesheet" href="/css/plugins/jquery.countdown.css">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/skins/skin-demo-2.css">
+	<link rel="stylesheet" href="/css/demos/demo-2.css">
+</head>
+
+<body>        
+
+	<div class="page-wrapper">
+
+		<header class="header header-2 header-intro-clearance">
+
+			<div class="header-middle">
+				<div class="container">
+					
+					<div class="header-left">
+						<button class="mobile-menu-toggler">
+							<span class="sr-only">فهرست</span>
+							<i class="icon-bars"></i>
+						</button>
+
+						<a href="/" class="logo">
+							<img src="/images/demos/demo-2/logo.png" alt="Molla Logo" width="105" height="25">
+						</a>
+					</div>
+
+					<div class="header-center">
+						<div
+                            class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
+							<a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+							<form action="#" method="get">
+								<div class="header-search-wrapper search-wrapper-wide">
+									<label for="q" class="sr-only">جستجو</label>
+									<input type="search" class="form-control" name="q" id="q"
+                                        placeholder="جستجوی محصول ..." required>
+									<button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+								</div><!-- End .header-search-wrapper -->
+							</form>
+						</div><!-- End .header-search -->
+					</div>
+
+					<div class="header-right">
+						<div class="account">
+							<a href="/account/login" title="My account">
+								<div class="icon">
+									<i class="icon-user"></i>
+								</div>
+								<p>حساب کاربری</p>
+							</a>
+						</div>
+
+
+						<div class="dropdown cart-dropdown">
+							<a href="javascript:void(0)" class="dropdown-toggle" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" data-display="static">
+								<div class="icon">
+									<i class="icon-shopping-cart"></i>
+									<span class="cart-count">2</span>
+								</div>
+								<p>سبد خرید</p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+
+		@RenderBody()
+
+		<footer class="footer footer-2">
+
+			<div class="footer-middle">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 col-lg-6">
+							<div class="widget widget-about">
+								<img src="/images/demos/demo-2/logo.png" class="footer-logo" alt="Footer Logo"
+                                    width="105" height="25">
+								<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با تولید سادگی
+									نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+									تولید سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
+
+
+								<div class="widget-about-info">
+									<div class="row">
+										<div class="col-sm-6 col-md-4">
+											<span class="widget-about-title">سوالی دارید؟ 7روز هفته/24ساعته</span>
+											<a href="tel:123456789">02155667788</a>
+										</div><!-- End .col-sm-6 -->
+									</div><!-- End .row -->
+								</div>
+
+							</div><!-- End .widget about-widget -->
+						</div><!-- End .col-sm-6 col-lg-3 -->
+
+						<div class="col-sm-4 col-lg-2">
+							<div class="widget">
+								<h4 class="widget-title">لینک های مفید</h4><!-- End .widget-title -->
+
+								<ul class="widget-list">
+									<li><a href="#">درباره ما</a></li>
+									<li><a href="#">خدمات</a></li>
+									<li><a href="#">نحوه خرید</a></li>
+									<li><a href="#">سوالات متداول</a></li>
+									<li><a href="#">تماس با ما</a></li>
+								</ul><!-- End .widget-list -->
+							</div><!-- End .widget -->
+						</div><!-- End .col-sm-4 col-lg-2 -->
+
+						<div class="col-sm-4 col-lg-2">
+							<div class="widget">
+								<h4 class="widget-title">خدمات مشتری</h4><!-- End .widget-title -->
+
+								<ul class="widget-list">
+									<li><a href="#">شیوه پرداخت</a></li>
+									<li><a href="#">گارانتی بازگشت وجه</a></li>
+									<li><a href="#">شیوه ارسال محصولات</a></li>
+									<li><a href="#">قوانین و مقررات</a></li>
+									<li><a href="#">خط مشی</a></li>
+								</ul><!-- End .widget-list -->
+							</div><!-- End .widget -->
+						</div><!-- End .col-sm-4 col-lg-2 -->
+
+						<div class="col-sm-4 col-lg-2">
+							<div class="widget">
+								<h4 class="widget-title">حساب کاربری</h4><!-- End .widget-title -->
+
+								<ul class="widget-list">
+									<li><a href="#">ورود</a></li>
+									<li><a href="#">سبد خرید</a></li>
+									<li><a href="#">لیست علاقه مندی ها</a></li>
+									<li><a href="#">پیگیری سفارشات</a></li>
+									<li><a href="#">راهنما</a></li>
+								</ul><!-- End .widget-list -->
+							</div><!-- End .widget -->
+						</div><!-- End .col-sm-4 col-lg-2 -->
+					</div><!-- End .row -->
+				</div><!-- End .container -->
+			</div><!-- End .footer-middle -->
+
+			<div class="footer-bottom">
+				<div class="container d-flex justify-content-center text-center">
+					<p class="footer-copyright text-center">
+						تمامی حقوق برای
+						<a href="https://webpersian.co">
+							وب پرشین
+						</a>
+						محفوظ است
+					</p>
+					<!-- End .footer-copyright -->
+				</div><!-- End .container -->
+			</div><!-- End .footer-bottom -->
+		</footer>
+
+		</div>
+
+	<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+
+	<div class="mobile-menu-overlay"></div>
+
+	<div class="mobile-menu-container mobile-menu-light">
+		<div class="mobile-menu-wrapper">
+			<span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+			<form action="#" method="get" class="mobile-search">
+				<label for="mobile-search" class="sr-only">جستجو</label>
+				<input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="جستجو در ..." required>
+				<button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+			</form>
+
+			<div class="tab-content">
+				<div class="tab-pane fade show active" id="mobile-menu-tab" role="tabpanel"
+                    aria-labelledby="mobile-menu-link">
+					<nav class="mobile-nav">
+						<ul class="mobile-menu">
+							<li class="active">
+								<a href="/">خانه</a>
+							</li>
+							<li>
+								<a href="#">فروشگاه</a>
+							</li>
+							<li>
+								<a href="#">اخبار</a>
+							</li>
+							<li>
+								<a href="#">درباره ما</a>
+							</li>
+							<li>
+								<a href="#">تماس با ما</a>
+							</li>
+						</ul>
+					</nav><!-- End .mobile-nav -->
+				</div><!-- .End .tab-pane -->
+			</div><!-- End .tab-content -->
+
+			<div class="social-icons">
+				<a href="#" class="social-icon" target="_blank" title="فیسبوک"><i class="icon-facebook-f"></i></a>
+				<a href="#" class="social-icon" target="_blank" title="توییتر"><i class="icon-twitter"></i></a>
+				<a href="#" class="social-icon" target="_blank" title="اینستاگرام"><i class="icon-instagram"></i></a>
+				<a href="#" class="social-icon" target="_blank" title="یوتیوب"><i class="icon-youtube"></i></a>
+			</div><!-- End .social-icons -->
+		</div><!-- End .mobile-menu-wrapper -->
+	</div>
+
+
+
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/jquery.hoverIntent.min.js"></script>
+	<script src="/js/jquery.waypoints.min.js"></script>
+	<script src="/js/superfish.min.js"></script>
+	<script src="/js/owl.carousel.min.js"></script>
+	<script src="/js/jquery.plugin.min.js"></script>
+	<script src="/js/jquery.magnific-popup.min.js"></script>
+	<script src="/js/jquery.countdown.min.js"></script>
+
+	<script src="/js/main.js"></script>
+	<script src="/js/demos/demo-2.js"></script>
+
+	@await RenderSectionAsync("Scripts", required: false)
+
 </body>
+
 </html>

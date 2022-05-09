@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -28,6 +29,9 @@ namespace Computer_Accessories_Shop.Data.Model
         public int Discount { get; set; }
         [Display(Name = "تصویر محصول")]
         public string Image { get; set; }
+
+        [Display(Name = "تاریخ ثبت")]
+        public DateTime? AddedDate { get; set; }
 
         [Display(Name = "امتیاز محصول")]
         public int Rate { get; set; }

@@ -25,8 +25,8 @@ namespace Computer_Accessories_Shop.Api.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Programmer")]
-        public async Task<IActionResult> CreateRole(string roleName)
+		//[Authorize(Roles = "Programmer")]
+		public async Task<IActionResult> CreateRole(string roleName)
         {
 
             bool x = await roleManager.RoleExistsAsync(roleName);
@@ -39,13 +39,11 @@ namespace Computer_Accessories_Shop.Api.Controllers
             return Ok(string.Format("Role {0} Created", roleName));
 
         }
-
         [HttpGet]
-        public ActionResult Register()
+        public IActionResult Login()
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -54,7 +52,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
             {
                 var CheckUserExist = await userManager.FindByEmailAsync(model.Email);
                 if (CheckUserExist != null)
-                    return BadRequest("User Is Already Here!"); ;
+                    return RedirectToAction("login");
 
                 var user = new IdentityUser()
                 {
@@ -85,7 +83,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
                         result2 = await userManager.AddToRoleAsync(user, roleName);
                     }
 
-                    return Ok(new { UserCreated = result.Succeeded, AddRole = result2.Succeeded });
+                    return RedirectToPage("/");
 
 
                 }
@@ -97,13 +95,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
 
             }
 
-            return BadRequest("Some properties are not valid"); // Status code: 400
-        }
-        [HttpGet]
-        public IActionResult Login()
-        {
-            var test = User;
-            return View();
+            return RedirectToAction("login");
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -114,18 +106,18 @@ namespace Computer_Accessories_Shop.Api.Controllers
                 var user = await userManager.FindByEmailAsync(model.Email);
 
                 if (user == null)
-                    return BadRequest("Some properties are not valid");
+                    return RedirectToAction("login");
 
                 //var result = await userManager.CheckPasswordAsync(user, model.Password);
                 var result = await signInManager.PasswordSignInAsync(user,model.Password,false,false);
 
                 if (result.Succeeded == false)
-                    return BadRequest("Some properties are not valid");
+                    return RedirectToAction("login");
 
-                return Ok();
+                return RedirectToPage("/");
             }
 
-            return BadRequest("Some properties are not valid"); // Status code: 400
+            return RedirectToAction("login");
         }
     }
 }
