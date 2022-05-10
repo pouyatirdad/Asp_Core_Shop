@@ -1,0 +1,53 @@
+﻿
+@model Computer_Accessories_Shop.Api.ViewModel.Products.ProductCategoryViewModel
+@{
+	ViewData["Title"] = "ادیت دسته بندی محصولات";
+	Layout = "../shared/_AdminLayout.cshtml";
+}
+
+
+<h5 class="d-flex justify-content-center align-items-center text-center">
+
+		ایجاد دسته بندی جدید
+
+</h5>
+
+<br />
+
+<div>
+
+	 @try
+        {
+            
+			@using (Html.BeginForm("ProductCategoryEdit", "admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "text-right p-4" }))
+			{
+				  <input type="hidden" value="@Model.ID" name="ID"/>
+				  <input type="hidden" value="@Model.Image" name="Image"/>
+
+				  <div class="form-group">
+					<label for="Title">
+						عنوان
+					</label>
+					<input type="text" class="form-control" id="Title" value="@Model.Title" name="Title" placeholder="عنوان">
+				  </div>
+
+		  
+				  <div class="form-group">
+					<label for="File">
+						آپلود تصویر
+					</label>
+					<input type="file" accept="image/*" class="form-control" id="File" name="File" placeholder="آپلود تصویر">
+				  </div>
+
+				  <button type="submit" class="btn btn-primary">
+					  آپدیت
+				  </button>		
+			}
+        }
+        catch (Exception e)
+        {
+        }
+
+</div>
+
+

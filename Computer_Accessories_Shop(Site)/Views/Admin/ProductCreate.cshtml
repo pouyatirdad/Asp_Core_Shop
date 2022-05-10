@@ -1,0 +1,80 @@
+﻿
+@model Computer_Accessories_Shop.Api.ViewModel.Products.ProductCategoryViewModel
+@{
+	ViewData["Title"] = "ایجاد محصول";
+	Layout = "../shared/_AdminLayout.cshtml";
+}
+
+
+<h5 class="d-flex justify-content-center align-items-center text-center">
+
+		ایجاد محصول جدید
+
+</h5>
+
+<br />
+
+<div>
+
+	@using (Html.BeginForm("ProductCreate", "admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "text-right p-4" }))
+	{
+
+				<input type="hidden" name="ProductCategoryID" value="@ViewBag.catId" />
+
+			  <div class="form-group">
+				<label for="Title">
+					عنوان
+				</label>
+				<input type="text" class="form-control" id="Title" name="Title" placeholder="عنوان">
+			  </div>
+
+			  <div class="form-group">
+				<label for="ShortDescription">
+					توضیح کوتاه
+				</label>
+				<input type="text" class="form-control" id="ShortDescription" name="ShortDescription" placeholder="توضیح کوتاه">
+			  </div>
+
+			  <div class="form-group">
+				<label for="Description">
+					توضیح
+				</label>
+				<textarea class="form-control" id="Description" name="Description" placeholder="توضیح">
+					</textarea>
+			  </div>
+
+			  <div class="form-group">
+				<label for="Price">
+					قیمت
+				</label>
+				<input type="text" class="form-control" id="Price" name="Price" placeholder="قیمت">
+			  </div>
+
+			  <div class="form-group">
+				<label for="Discount">
+					درصد تخفیف
+				</label>
+				<input type="text" class="form-control" id="Discount" name="Discount" placeholder="درصد تخفیف">
+			  </div>
+
+			  <div class="form-group">
+				<label for="Rate">
+					امتیاز
+				</label>
+				<input type="text" class="form-control" id="Rate" name="Rate" placeholder="امتیاز">
+			  </div>
+
+
+			  <div class="form-group">
+				<label for="File">
+					آپلود تصویر
+				</label>
+				<input type="file" accept="image/*" class="form-control" id="File" name="File" placeholder="آپلود تصویر">
+			  </div>
+
+			  <button type="submit" class="btn btn-primary">
+				  ایجاد
+			  </button>		
+	}
+
+</div>

@@ -1,0 +1,64 @@
+﻿
+@model IEnumerable<Computer_Accessories_Shop.Data.Model.ProductCategory>
+@{
+	ViewData["Title"] = "دسته بندی محصولات";
+	Layout = "../shared/_AdminLayout.cshtml";
+}
+
+
+<h5 class="d-flex justify-content-center align-items-center text-center">
+
+	دسته بندی محصولات
+
+</h5>
+
+<br />
+
+<div>
+
+	<div class="d-flex justify-content-start pr-3">
+		<a href="/admin/ProductCategoryCreate" class="btn btn-primary">
+			ایجاد دسته بندی جدید
+		</a>
+	</div>
+
+	@if (Model.Any())
+	{
+			<table class="w-75 mx-auto table mt-4 text-right">
+			  <thead>
+				<tr>
+				  <th scope="col">شماره</th>
+				  <th scope="col">عنوان</th>
+				  <th scope="col">دستورات</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				@foreach (var item in Model)
+				{
+						<tr>
+						  <th scope="row">@item.ID</th>
+						  <td>@item.Title</td>
+						  <td>
+							<a href="@Url.Action("Products","admin", new { catId = item.ID })" class="btn btn-info">
+								محصولات
+							</a>
+							<a href="@Url.Action("ProductCategoryEdit","admin", new { id = item.ID })" class="btn btn-warning">
+								ادیت
+							</a>
+							<a href="@Url.Action("ProductCategoryDelete","admin", new { id = item.ID })" class="btn btn-danger">
+								حذف
+							</a>
+						  </td>
+						</tr>
+				}
+			  </tbody>
+			</table>
+	}
+	else
+	{
+			<h6 class="text-danger text-center">
+				دسته بندی ای جهت نمایش وجود ندارد
+			</h6>
+	}
+
+</div>

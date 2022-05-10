@@ -13,6 +13,7 @@ namespace Computer_Accessories_Shop.Service.Service
     {
         public IEnumerable<Product> GetProductsHasDiscount(int num);
         public IEnumerable<Product> GetProductsByAddedDate(int num);
+        public IEnumerable<Product> GetProductsByCatId(int catId);
     }
 
     public class ProductService : BaseRepository<Product>, IProductService
@@ -26,6 +27,11 @@ namespace Computer_Accessories_Shop.Service.Service
         public IEnumerable<Product> GetProductsByAddedDate(int num)
         {
             return GetAll().OrderByDescending(x=>x.AddedDate).Take(num);
+        }
+
+        public IEnumerable<Product> GetProductsByCatId(int catId)
+        {
+            return GetAll().Where(x => x.ProductCategoryID == catId);
         }
 
         public IEnumerable<Product> GetProductsHasDiscount(int num)

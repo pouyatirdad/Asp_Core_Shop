@@ -31,32 +31,6 @@ namespace Computer_Accessories_Shop.Api.Controllers
             var findedReslut = ProductService.GetById(id);
             return findedReslut;
         }
-        [HttpPost("Create")]
-        public async Task<bool> Create([FromForm]ProductViewModel model)
-        {
-            if (model.ProductCategoryID == 0)
-                model.ProductCategoryID = null;
-
-            if (model.File != null)
-            {
-                var imageName = await ImageHelper.SaveImage(model.File, 670, 400, true);
-                model.Image = imageName;
-            }
-
-            var newModel=new Product()
-            {
-                Title = model.Title,
-                ShortDescription=model.ShortDescription,
-                Description = model.Description,
-                Price = model.Price,
-                Discount = model.Discount,
-                Image=model.Image,
-                Rate=model.Rate,
-                ProductCategoryID =model.ProductCategoryID,
-            };
-
-            return ProductService.Create(newModel);
-        }
         [HttpPost("Edit")]
         public async Task<bool> Edit([FromForm]ProductViewModel model)
         {

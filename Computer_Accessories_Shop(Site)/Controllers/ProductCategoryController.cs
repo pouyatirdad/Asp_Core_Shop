@@ -32,53 +32,6 @@ namespace Computer_Accessories_Shop.Api.Controllers
             var findedReslut = productCategoryService.GetById(id);
             return findedReslut;
         }
-        [HttpPost("Create")]
-        public async Task<bool> Create([FromForm] ProductCategoryViewModel model)
-        {
-            if (model.ParentID == 0)
-                model.ParentID = null;
 
-            if (model.File != null)
-            {
-                var imageName = await ImageHelper.SaveImage(model.File, 670, 400, true);
-                model.Image = imageName;
-            }
-
-            var newModel=new ProductCategory()
-            {
-                Title = model.Title,
-                Image=model.Image,
-                ParentID=model.ParentID,
-            };
-
-            return productCategoryService.Create(newModel);
-        }
-        [HttpPost("Edit")]
-        public async Task<bool> Edit([FromForm] ProductCategoryViewModel model)
-        {
-            if (model.ParentID == 0)
-                model.ParentID = null;
-
-            if (model.File != null)
-            {
-                var imageName = await ImageHelper.SaveImage(model.File, 670, 400, true);
-                model.Image = imageName;
-            }
-
-            var newModel = new ProductCategory()
-            {
-                ID = model.ID,
-                Title = model.Title,
-                Image = model.Image,
-                ParentID = model.ParentID,
-            };
-
-            return productCategoryService.Edit(newModel);
-        }
-        [HttpPost("Delete")]
-        public bool Delete(int id)
-        {
-            return productCategoryService.Delete(id);
-        }
     }
 }
