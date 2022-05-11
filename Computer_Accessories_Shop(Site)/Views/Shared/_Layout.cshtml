@@ -6,7 +6,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>@ViewData["Title"]</title>
+	<title>@ViewData["Title"]
+	-
+	فروشگاه مهندس منصوری
+	</title>
 	<meta name="keywords" content="HTML5 Template">
 	<meta name="description" content="Molla - Bootstrap eCommerce Template">
 	<meta name="author" content="p-themes">
@@ -66,21 +69,41 @@
 
 					<div class="header-right">
 						<div class="account">
-							<a href="/account/login" title="My account">
-								<div class="icon">
-									<i class="icon-user"></i>
-								</div>
-								<p>حساب کاربری</p>
-							</a>
+							@if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Programmer"))
+                            {
+								<a href="/admin/" title="My account">
+									<div class="icon">
+										<i class="icon-user"></i>
+									</div>
+									<p>ورود به پنل ادمین</p>
+								</a>
+							}
+							else if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+							{
+								<a href="javascript:void(0)" title="My account">
+									<div class="icon">
+										<i class="icon-user"></i>
+									</div>
+									<p>خوش آمدید</p>
+								</a>								
+							}
+							else
+                            {
+								<a href="/account/login" title="My account">
+									<div class="icon">
+										<i class="icon-user"></i>
+									</div>
+									<p>ورود / ثبت نام</p>
+								</a>
+                            }
 						</div>
 
 
 						<div class="dropdown cart-dropdown">
-							<a href="javascript:void(0)" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" data-display="static">
+							<a href="@Url.Action("Cart","Product")" class="dropdown-toggle">
 								<div class="icon">
 									<i class="icon-shopping-cart"></i>
-									<span class="cart-count">2</span>
+									<span id="CartCount" class="cart-count">0</span>
 								</div>
 								<p>سبد خرید</p>
 							</a>
@@ -167,10 +190,7 @@
 			<div class="footer-bottom">
 				<div class="container d-flex justify-content-center text-center">
 					<p class="footer-copyright text-center">
-						تمامی حقوق برای
-						<a href="https://webpersian.co">
-							وب پرشین
-						</a>
+						تمامی حقوق
 						محفوظ است
 					</p>
 					<!-- End .footer-copyright -->
@@ -204,18 +224,6 @@
 							<li class="active">
 								<a href="/">خانه</a>
 							</li>
-							<li>
-								<a href="#">فروشگاه</a>
-							</li>
-							<li>
-								<a href="#">اخبار</a>
-							</li>
-							<li>
-								<a href="#">درباره ما</a>
-							</li>
-							<li>
-								<a href="#">تماس با ما</a>
-							</li>
 						</ul>
 					</nav><!-- End .mobile-nav -->
 				</div><!-- .End .tab-pane -->
@@ -244,6 +252,47 @@
 
 	<script src="/js/main.js"></script>
 	<script src="/js/demos/demo-2.js"></script>
+
+	
+
+    <script>
+    
+        function AddToCart(id){
+            ﻿  $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddToCart","Product")',
+                data: "id=" + id,
+                success: function (data) {
+					alert("محصول به سبد خرید شما اضافه شد");
+					location.reload();
+                },
+                error: function (data) {
+					alert("مشکلی رخ داده است");
+                }
+              });
+        }
+
+    </script>
+
+    <script>
+    		
+	$( document ).ready(function() {
+		
+            ﻿  $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetCartItemNumber","Product")',
+                success: function (data) {
+					$("#CartCount").html(data);
+                },
+                error: function (data) {
+                    console.log("Error");
+                    console.log(data);
+                }
+              });
+
+	});
+
+    </script>
 
 	@await RenderSectionAsync("Scripts", required: false)
 

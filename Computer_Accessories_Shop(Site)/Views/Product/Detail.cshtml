@@ -1,0 +1,98 @@
+﻿@model Computer_Accessories_Shop.Data.Model.Product;
+
+@{
+    ViewData["Title"] = "اطالاعت محصول";
+	Layout = "../shared/_layout.cshtml";
+}
+
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container d-flex align-items-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">محصول</li>
+                    </ol>
+                </div>
+            </nav>
+
+            <div class="page-content">
+                <div class="container">
+                    <div class="product-details-top mb-2">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="product-gallery product-gallery-vertical">
+                                    <div class="row">
+                                        <figure class="product-main-image">
+                                            <img id="product-zoom" src="/UploadedFiles/Images/@Model.Image" alt="تصویر محصول">
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="product-details product-details-centered">
+                                    <h1 class="product-title text-center">
+                                        @Model.Title
+                                    </h1>
+                                    
+
+                                    <div class="product-price text-center">
+                                        @Model.Price
+                                        تومان
+                                    </div>
+
+                                    <div class="product-content">
+                                        <p class="text-center">
+                                            @Model.ShortDescription
+                                        </p>
+                                    </div>
+
+
+                                    <div class="product-details-action">
+                                        <div class="details-action-col">
+                                            <a href="javascript:void(0)" onclick="AddToCart(@Model.ID)" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-details-footer">
+                                        <div class="social-icons social-icons-sm">
+                                            <span class="social-label">اشتراک گذاری : </span>
+                                            <a href="#" class="social-icon" title="فیسبوک" target="_blank"><i
+                                                    class="icon-facebook-f"></i></a>
+                                            <a href="#" class="social-icon" title="توییتر" target="_blank"><i
+                                                    class="icon-twitter"></i></a>
+                                            <a href="#" class="social-icon" title="اینستاگرام" target="_blank"><i
+                                                    class="icon-instagram"></i></a>
+                                            <a href="#" class="social-icon" title="پینترست" target="_blank"><i
+                                                    class="icon-pinterest"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-details-tab">
+                        <ul class="nav nav-pills justify-content-center" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="product-desc-link" data-toggle="tab"
+                                    href="#product-desc-tab" role="tab" aria-controls="product-desc-tab"
+                                    aria-selected="true">توضیحات</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel"
+                                aria-labelledby="product-desc-link">
+                                <div class="product-desc-content">
+                                    <h3>اطلاعات محصول</h3>
+                                    <p>
+                                        @Model.Description
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>

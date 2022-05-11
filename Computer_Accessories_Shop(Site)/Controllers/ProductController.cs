@@ -2,16 +2,15 @@
 using Computer_Accessories_Shop.Data.Model;
 using Computer_Accessories_Shop.Service.Service;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StorePanel.Infrastructure.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Computer_Accessories_Shop.Api.Controllers
 {
-    [ApiController]
-    [EnableCors("MyPolicy")]
-    [Route("[controller]")]
     public class ProductController : Controller
     {
         private readonly IProductService ProductService;
@@ -20,48 +19,138 @@ namespace Computer_Accessories_Shop.Api.Controllers
             this.ProductService = ProductService;
         }
 
-        [HttpGet]
-        public IEnumerable<Product> Get()
+        public IActionResult Index()
         {
-            return ProductService.GetAll();
+            var model = ProductService.GetAll();
+            return View(model);
         }
-        [HttpGet("Get/{id:int}")]
-        public Product Get(int id)
+        [HttpGet]
+        public IActionResult Detail(int id)
         {
             var findedReslut = ProductService.GetById(id);
-            return findedReslut;
+            return View(findedReslut);
         }
-        [HttpPost("Edit")]
-        public async Task<bool> Edit([FromForm]ProductViewModel model)
+        [HttpPost]
+        public bool AddToCart(int id)
         {
-            if (model.ProductCategoryID == 0)
-                model.ProductCategoryID = null;
-
-            if (model.File != null)
+            try
             {
-                var imageName = await ImageHelper.SaveImage(model.File, 670, 400, true);
-                model.Image = imageName;
+                List<int> items = new List<int>();
+
+                string PrevValue = GetCoockie("cart");
+                if (PrevValue != null)
+                {
+                    var PrevList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(PrevValue);
+
+                    for (int i = 0; i < PrevList.Count; i++)
+                    {
+                        items.Add(PrevList[i]);
+                    }
+                }
+
+                items.Add(id);
+
+                var jsonStr = Newtonsoft.Json.JsonConvert.SerializeObject(items);
+
+                SetCoockie("cart", jsonStr, 10);
+
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
             }
 
-            var newModel = new Product()
-            {
-                ID = model.ID,
-                Title = model.Title,
-                ShortDescription = model.ShortDescription,
-                Description = model.Description,
-                Price = model.Price,
-                Discount = model.Discount,
-                Image = model.Image,
-                Rate = model.Rate,
-                ProductCategoryID = model.ProductCategoryID,
-            };
-
-            return ProductService.Edit(newModel);
         }
-        [HttpPost("Delete")]
-        public bool Delete(int id)
+
+        public int GetCartItemNumber()
         {
-            return ProductService.Delete(id);
+            var items = new List<int>();
+            string PrevValue = GetCoockie("cart");
+            if (PrevValue != null)
+            {
+                items = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(PrevValue);
+            }
+
+            return items.Count;
+        }
+        public string GetCoockie(string key)
+        {
+            string cookieValue = Request.Cookies[key];
+
+            return cookieValue;
+        }
+
+        public void SetCoockie(string key, string value, int? expireTime)
+        {
+            CookieOptions option = new CookieOptions();
+
+            if (expireTime.HasValue)
+                option.Expires = DateTime.Now.AddDays(expireTime.Value);
+            else
+                option.Expires = DateTime.Now.AddDays(7);
+
+            Response.Cookies.Append(key, value, option);
+        }
+
+        public IActionResult Cart()
+        {
+            List<Product> products = new List<Product>();
+
+            string PrevValue = GetCoockie("cart");
+            if (PrevValue != null)
+            {
+                var PrevList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(PrevValue);
+
+                for (int i = 0; i < PrevList.Count; i++)
+                {
+                    var product = ProductService.GetById(PrevList[i]);
+                    products.Add(product);
+                }
+
+            }
+
+            return View(products);
+        }
+        public IActionResult CheckOut()
+        {
+            List<Product> products = new List<Product>();
+
+            string PrevValue = GetCoockie("cart");
+            if (PrevValue != null)
+            {
+                var PrevList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(PrevValue);
+
+                for (int i = 0; i < PrevList.Count; i++)
+                {
+                    var product = ProductService.GetById(PrevList[i]);
+                    products.Add(product);
+                }
+
+            }
+
+            return View(products);
+        }
+        [HttpPost]
+        public IActionResult ShowFactor()
+        {
+            List<Product> products = new List<Product>();
+
+            string PrevValue = GetCoockie("cart");
+            if (PrevValue != null)
+            {
+                var PrevList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(PrevValue);
+
+                for (int i = 0; i < PrevList.Count; i++)
+                {
+                    var product = ProductService.GetById(PrevList[i]);
+                    products.Add(product);
+                }
+
+            }
+
+            return View(products);
         }
     }
 }

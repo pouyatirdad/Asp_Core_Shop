@@ -1,0 +1,177 @@
+﻿
+@model IEnumerable<Computer_Accessories_Shop.Data.Model.Product>
+
+@{
+	ViewData["Title"] = "پرداخت";
+	Layout = "../shared/_layout.cshtml";
+	var totalPrice = 0.0;
+}
+
+
+
+        <main class="main">
+            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h1 class="page-title">صفحه پرداخت<span>فروشگاه</span></h1>
+                </div>
+            </div>
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">صفحه پرداخت</li>
+                    </ol>
+                </div>
+            </nav>
+
+            <div class="page-content">
+                <div class="checkout">
+                    <div class="container">
+                        <form action="/product/ShowFactor" method="post">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <h2 class="checkout-title">جزئیات صورت حساب</h2>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>نام *</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label>نام خانوادگی *</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <label>نام شرکت (اختیاری)</label>
+                                    <input type="text" class="form-control">
+
+                                    <label>کشور *</label>
+                                    <input type="text" class="form-control" required>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>شهر *</label>
+                                            <input type="text" class="form-control" required>
+
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label>شهرستان *</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label>خیابان *</label>
+                                            <input type="text" class="form-control" placeholder="نام خیابان و پلاک"
+                                                required>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>کد پستی *</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label>تلفن *</label>
+                                            <input type="tel" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <label>ایمیل *</label>
+                                    <input type="email" class="form-control" required>
+
+                                    <label>توضیحات (اختیاری)</label>
+                                    <textarea class="form-control" cols="30" rows="4"
+                                        placeholder="شما میتوانید توضیحات اضافی خود را اینجا بنویسید"></textarea>
+                                </div>
+                                <aside class="col-lg-3">
+                                    <div class="summary">
+                                        <h3 class="summary-title">سفارش شما</h3>
+
+                                        <table class="table table-summary">
+                                            <thead>
+                                                <tr>
+                                                    <th>محصول</th>
+                                                    <th class="text-left">جمع</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                @if(Model.Any()){
+                                                    foreach (var item in Model)
+                                                    {
+                                                    totalPrice += item.Price;
+                                                    <tr>
+                                                        <td><a href="/Product/Detail/@item.ID">
+                                                        @item.Title    
+                                                        </a></td>
+                                                        <td class="text-left">
+                                                            @item.Price
+                                                            تومان</td>
+                                                    </tr>
+                                                    }
+                                                }
+
+                                                <tr class="summary-subtotal">
+                                                    <td>جمع سبد خرید</td>
+                                                    <td class="text-left">
+                                                        @totalPrice
+                                                        تومان</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>شیوه ارسال : </td>
+                                                    <td class="text-left">ارسال رایگان</td>
+                                                </tr>
+                                                <tr class="summary-total">
+                                                    <td>مبلغ قابل پرداخت :</td>
+                                                    <td class="text-left">
+                                                        @totalPrice
+                                                        تومان</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="accordion-summary" id="accordion-payment">
+                                            <div class="card">
+                                                <div class="card-header" id="heading-1">
+                                                    <h2 class="card-title">
+                                                        <a role="button" data-toggle="collapse" href="#collapse-1"
+                                                            aria-expanded="true" aria-controls="collapse-1">
+                                                            درگاه بانک ملت
+                                                        </a>
+                                                    </h2>
+                                                </div>
+
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-2">
+                                                        <h2 class="card-title">
+                                                            <a class="collapsed" role="button" data-toggle="collapse"
+                                                                href="#collapse-2" aria-expanded="false"
+                                                                aria-controls="collapse-2">
+                                                                درگاه شاپرک
+                                                            </a>
+                                                        </h2>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                                <span class="btn-text">ثبت</span>
+                                                <span class="btn-hover-text">پرداخت</span>
+                                            </button>
+                                        </div>
+                                </aside>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+

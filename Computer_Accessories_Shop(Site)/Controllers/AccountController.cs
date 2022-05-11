@@ -40,8 +40,11 @@ namespace Computer_Accessories_Shop.Api.Controllers
 
         }
         [HttpGet]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
+            await CreateRole("Programmer");
+            await CreateRole("Admin");
+            await CreateRole("User");
             return View();
         }
         [HttpPost]
@@ -80,10 +83,11 @@ namespace Computer_Accessories_Shop.Api.Controllers
                         role.Name = "User";
                         await roleManager.CreateAsync(role);
 
+
                         result2 = await userManager.AddToRoleAsync(user, roleName);
                     }
 
-                    return RedirectToPage("/");
+                    return RedirectToAction("login");
 
 
                 }
@@ -100,7 +104,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-
+            
             if (ModelState.IsValid)
             {
                 var user = await userManager.FindByEmailAsync(model.Email);
@@ -114,7 +118,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
                 if (result.Succeeded == false)
                     return RedirectToAction("login");
 
-                return RedirectToPage("/");
+                return RedirectToAction("login");
             }
 
             return RedirectToAction("login");

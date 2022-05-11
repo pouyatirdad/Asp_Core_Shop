@@ -1,7 +1,7 @@
 ﻿
 @model IEnumerable<Computer_Accessories_Shop.Data.Model.Product>
 @{
-	ViewData["Title"] = "دسته بندی محصولات";
+	ViewData["Title"] = "محصولات";
 	Layout = "../shared/_AdminLayout.cshtml";
 }
 
@@ -45,10 +45,7 @@
 						  <td>@item.Discount</td>
 						  <td>@item.AddedDate</td>
 						  <td>
-							<a href="@Url.Action("Products","admin", new { catId = item.ID })" class="btn btn-info">
-								محصولات
-							</a>
-							<a href="@Url.Action("ProductCategoryEdit","admin", new { id = item.ID })" class="btn btn-warning">
+							<a href="@Url.Action("ProductEdit","admin", new { id = item.ID })" class="btn btn-warning">
 								ادیت
 							</a>
 							<a href="@Url.Action("ProductDelete","admin", new { id = item.ID })" class="btn btn-danger">

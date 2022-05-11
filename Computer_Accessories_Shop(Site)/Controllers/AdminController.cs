@@ -1,12 +1,14 @@
 ﻿using Computer_Accessories_Shop.Api.ViewModel.Products;
 using Computer_Accessories_Shop.Data.Model;
 using Computer_Accessories_Shop.Service.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorePanel.Infrastructure.Helpers;
 using System.Threading.Tasks;
 
 namespace Computer_Accessories_Shop_Site_.Controllers
 {
+    [Authorize(Roles = "Programmer")]
     public class AdminController : Controller
     {
         private readonly IProductCategoryService productCategoryService;
@@ -146,6 +148,58 @@ namespace Computer_Accessories_Shop_Site_.Controllers
             };
 
             bool result = ProductService.Create(newModel);
+
+            if (result == true)
+                return RedirectToAction("index");
+
+            return View();
+        }
+        [HttpGet]
+        public IActionResult ProductEdit(int Id)
+        {
+            ViewBag.Id = Id;
+
+            var model = ProductService.GetById(Id);
+            var newModel = new ProductViewModel()
+            {
+                ID = model.ID,
+                Title = model.Title,
+                ShortDescription = model.ShortDescription,
+                Description = model.Description,
+                Price = model.Price,
+                Discount = model.Discount,
+                Image = model.Image,
+                Rate = model.Rate,
+                ProductCategoryID = model.ProductCategoryID,
+            };
+            return View(newModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ProductEdit(ProductViewModel model)
+        {
+            if (model.ProductCategoryID == 0)
+                model.ProductCategoryID = null;
+
+            if (model.File != null)
+            {
+                var imageName = await ImageHelper.SaveImage(model.File, 670, 400, true);
+                model.Image = imageName;
+            }
+
+            var newModel = new Product()
+            {
+                ID = model.ID,
+                Title = model.Title,
+                ShortDescription = model.ShortDescription,
+                Description = model.Description,
+                Price = model.Price,
+                Discount = model.Discount,
+                Image = model.Image,
+                Rate = model.Rate,
+                ProductCategoryID = model.ProductCategoryID,
+            };
+
+            bool result = ProductService.Edit(newModel);
 
             if (result == true)
                 return RedirectToAction("index");

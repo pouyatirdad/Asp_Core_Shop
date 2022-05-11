@@ -1,0 +1,83 @@
+﻿
+@model Computer_Accessories_Shop.Api.ViewModel.Products.ProductViewModel
+@{
+	ViewData["Title"] = "ادیت محصول";
+	Layout = "../shared/_AdminLayout.cshtml";
+}
+
+
+<h5 class="d-flex justify-content-center align-items-center text-center">
+
+		ادیت محصول
+
+</h5>
+
+<br />
+
+<div>
+
+	@using (Html.BeginForm("ProductEdit", "admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "text-right p-4" }))
+	{
+
+				<input type="hidden" name="ProductCategoryID" value="@Model.ProductCategoryID" />
+				<input type="hidden" name="ID" value="@ViewBag.Id" />
+				<input type="hidden" name="Image" value="@Model.Image" />
+
+			  <div class="form-group">
+				<label for="Title">
+					عنوان
+				</label>
+				<input type="text" class="form-control" id="Title" value="@Model.Title" name="Title" placeholder="عنوان">
+			  </div>
+
+			  <div class="form-group">
+				<label for="ShortDescription">
+					توضیح کوتاه
+				</label>
+				<input type="text" class="form-control" id="ShortDescription" value="@Model.ShortDescription" name="ShortDescription" placeholder="توضیح کوتاه">
+			  </div>
+
+			  <div class="form-group">
+				<label for="Description">
+					توضیح
+				</label>
+				<textarea class="form-control" id="Description" name="Description" placeholder="توضیح">
+					@Model.Description
+					</textarea>
+			  </div>
+
+			  <div class="form-group">
+				<label for="Price">
+					قیمت
+				</label>
+				<input type="text" class="form-control" id="Price" value="@Model.Price" name="Price" placeholder="قیمت">
+			  </div>
+
+			  <div class="form-group">
+				<label for="Discount">
+					درصد تخفیف
+				</label>
+				<input type="text" class="form-control" id="Discount" value="@Model.Discount" name="Discount" placeholder="درصد تخفیف">
+			  </div>
+
+			  <div class="form-group">
+				<label for="Rate">
+					امتیاز
+				</label>
+				<input type="text" class="form-control" id="Rate" value="@Model.Rate" name="Rate" placeholder="امتیاز">
+			  </div>
+
+
+			  <div class="form-group">
+				<label for="File">
+					آپلود تصویر
+				</label>
+				<input type="file" accept="image/*" class="form-control" value="@Model.File" id="File" name="File" placeholder="آپلود تصویر">
+			  </div>
+
+			  <button type="submit" class="btn btn-primary">
+				  ادیت
+			  </button>		
+	}
+
+</div>
