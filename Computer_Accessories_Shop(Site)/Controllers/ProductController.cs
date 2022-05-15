@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using StorePanel.Infrastructure.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Computer_Accessories_Shop.Api.Controllers
@@ -19,10 +20,35 @@ namespace Computer_Accessories_Shop.Api.Controllers
             this.ProductService = ProductService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1, int pageSize = 9, int? ProductCategoryId = null)
         {
-            var model = ProductService.GetAll();
-            return View(model);
+
+            int paresh = (page - 1) * pageSize;
+            ViewBag.PageID = page;
+            ViewBag.PageSize = pageSize;
+            var products = new List<Product> { };
+            if (ProductCategoryId == null)
+            {
+                products = ProductService.GetAll().ToList();
+            }
+            else
+            {
+                products = ProductService.GetAll().Where(x => x.ProductCategoryID == ProductCategoryId).ToList();
+            }
+
+            int totalCount = products.Count();
+            ViewBag.All = totalCount;
+
+            return View(products.Skip(paresh).Take(pageSize).ToList());
+        }
+
+        [HttpPost]
+        public IActionResult SearchResult(string txtstring)
+        {
+            ViewBag.searchString = txtstring;
+            var products = ProductService.GetAll().Where(x=>x.Title.Contains(txtstring)).ToList();
+
+            return View(products);
         }
         [HttpGet]
         public IActionResult Detail(int id)

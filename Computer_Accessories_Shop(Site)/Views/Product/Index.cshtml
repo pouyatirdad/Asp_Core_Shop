@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Computer_Accessories_Shop.Data.Model.Product>;
+
+@{
+    ViewData["Title"] = "فروشگاه";
+	Layout = "../shared/_layout.cshtml";
+}
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">فروشگاه<span></span></h1>
+        </div>
+    </div>
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                <li class="breadcrumb-item active" aria-current="page">فروشگاه</li>
+            </ol>
+        </div>
+    </nav>
+
+    <div class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="toolbox">
+                        <div class="toolbox-left">
+                            <div class="toolbox-info">
+                                نمایش 
+                                <span>
+                                    @Model.Count()
+                                    از 
+                                    @ViewBag.All
+                                    </span> محصول
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="products mb-3">
+                        <div class="row justify-content-center">
+
+                            @if (Model.Any())
+                            {
+	                            foreach (var item in Model)
+	                            {
+		
+				                            <div class="col-6 col-md-4 col-lg-3 col-xl-5col">
+						
+					                            <div class="product product-11 text-center">
+						                            <figure class="product-media">
+							                            <a href="/Product/Detail/@item.ID">
+								                            <img src="/UploadedFiles/Images/@item.Image" alt="@item.Title" class="product-image">
+							                            </a>
+
+							                            <div class="product-action-vertical">
+							                            </div>
+						                            </figure>
+
+						                            <div class="product-body">
+							                            <h3 class="product-title text-center"><a href="#">
+									                            @item.Title
+								                            </a>
+							                            </h3>
+							                            <div class="product-price">
+								                            @item.Price
+								                            تومان
+							                            </div>
+						                            </div>
+						                            <div class="product-action">
+							                            <a href="javascript:void(0)" onclick="AddToCart(@item.ID)" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
+						                            </div>
+					                            </div>
+				                            </div>
+	                            }
+                            }
+                            else
+                            {   
+                                       <div class="col-12">
+						
+                                <h2 class="text-danger mx-auto text-center">
+                                    متاسفانه موردی وجود ندارد!
+                                </h2>
+				                            </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    
+                    <pager link-url="/Product/index" page="@ViewBag.PageID" page-size="@ViewBag.PageSize" skip-forward-back-navigation="Disabled" first-last-navigation="Disabled" previous-page-text="قبل" next-page-text="بعد" total-items="@ViewBag.All"></pager>
+
+
+                </div>
+                <aside class="col-lg-3 order-lg-first">
+                    <div class="sidebar sidebar-shop">
+                        
+                        @await Component.InvokeAsync("Category")
+
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</main>

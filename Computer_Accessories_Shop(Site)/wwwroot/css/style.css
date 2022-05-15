@@ -1660,14 +1660,16 @@ blockquote.text-white cite span {
 }
 
 .header-intro-clearance .header-bottom .container::before {
-  position: absolute;
-  content: "";
-  right: 28.5rem;
-  height: 1.5rem;
-  width: 0.1rem;
-  top: 50%;
-  background-color: #ccc;
-  transform: translateY(-50%);
+    position: absolute;
+    content: "";
+    right: 28.5rem;
+    height: 1.5rem;
+    width: 0.1rem;
+    top: 50%;
+    background-color: #ccc;
+    transform: translateY(-50%);
+    display: none;
+    visibility: hidden;
 }
 
 .header-intro-clearance .header-bottom .container::after {
@@ -1679,6 +1681,8 @@ blockquote.text-white cite span {
   top: 50%;
   background-color: #ccc;
   transform: translateY(-50%);
+  display:none;
+  visibility:hidden;
 }
 
 .header-intro-clearance .header-middle .header-right p {
@@ -3572,12 +3576,6 @@ p {
   }
 }
 
-@media screen and (max-width: 1119px) {
-  .header-intro-clearance .header-bottom .container::before,
-  .header-intro-clearance .header-bottom .container::after {
-    visibility: hidden;
-  }
-}
 
 @media screen and (max-width: 1100px) {
   .header-intro-clearance .header-bottom .header-right i {

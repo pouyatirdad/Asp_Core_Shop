@@ -53,19 +53,18 @@
 					</div>
 
 					<div class="header-center">
-						<div
-                            class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
-							<a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-							<form action="#" method="get">
-								<div class="header-search-wrapper search-wrapper-wide">
-									<label for="q" class="sr-only">جستجو</label>
-									<input type="search" class="form-control" name="q" id="q"
-                                        placeholder="جستجوی محصول ..." required>
-									<button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-								</div><!-- End .header-search-wrapper -->
-							</form>
-						</div><!-- End .header-search -->
-					</div>
+                        <div class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
+                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                            <form action="/product/SearchResult" method="post" >
+                                <div class="header-search-wrapper search-wrapper-wide">
+                                    <label for="q" class="sr-only">جستجو</label>
+                                    <input type="search" class="form-control" name="txtstring" id="txtstring"
+                                           placeholder="جستجوی محصول ..." required>
+                                    <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
 					<div class="header-right">
 						<div class="account">
@@ -111,6 +110,33 @@
 					</div>
 				</div>
 			</div>
+
+			
+            <div class="header-bottom sticky-header">
+                <div class="container">
+                    <div class
+                    </div>
+
+                    <div class="header-center">
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li>
+                                    <a href="/" class="">خانه</a>
+                                </li>
+
+                                <li class="">
+                                    <a href="/product/index" class="">فروشگاه</a>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="header-right">
+                    </div>
+                </div>
+            </div>
+
 
 		</header>
 
@@ -209,33 +235,36 @@
 		<div class="mobile-menu-wrapper">
 			<span class="mobile-menu-close"><i class="icon-close"></i></span>
 
-			<form action="#" method="get" class="mobile-search">
-				<label for="mobile-search" class="sr-only">جستجو</label>
-				<input type="search" class="form-control" name="mobile-search" id="mobile-search"
-                    placeholder="جستجو در ..." required>
-				<button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-			</form>
+			<form action="/product/SearchResult" method="post" class="mobile-search">
+                <label for="mobile-search" class="sr-only">جستجو</label>
+                <input type="search" class="form-control" name="txtstring" id="mobile-search"
+                       placeholder="جستجو در ..." required>
+                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+            </form>
 
 			<div class="tab-content">
 				<div class="tab-pane fade show active" id="mobile-menu-tab" role="tabpanel"
                     aria-labelledby="mobile-menu-link">
 					<nav class="mobile-nav">
 						<ul class="mobile-menu">
-							<li class="active">
+							<li>
 								<a href="/">خانه</a>
 							</li>
+							<li >
+                                <a href="/product/index" class="">فروشگاه</a>
+							</li>
 						</ul>
-					</nav><!-- End .mobile-nav -->
-				</div><!-- .End .tab-pane -->
-			</div><!-- End .tab-content -->
+					</nav>
+				</div>
+			</div>
 
 			<div class="social-icons">
 				<a href="#" class="social-icon" target="_blank" title="فیسبوک"><i class="icon-facebook-f"></i></a>
 				<a href="#" class="social-icon" target="_blank" title="توییتر"><i class="icon-twitter"></i></a>
 				<a href="#" class="social-icon" target="_blank" title="اینستاگرام"><i class="icon-instagram"></i></a>
 				<a href="#" class="social-icon" target="_blank" title="یوتیوب"><i class="icon-youtube"></i></a>
-			</div><!-- End .social-icons -->
-		</div><!-- End .mobile-menu-wrapper -->
+			</div>
+		</div>
 	</div>
 
 
