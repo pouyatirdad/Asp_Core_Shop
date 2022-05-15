@@ -176,6 +176,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
 
             }
 
+            Response.Cookies.Delete("cart");
             return View(products);
         }
     }
