@@ -1,13 +1,17 @@
 ﻿using Computer_Accessories_Shop.Api.ViewModel.Products;
 using Computer_Accessories_Shop.Data.Model;
 using Computer_Accessories_Shop.Service.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StorePanel.Infrastructure.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Computer_Accessories_Shop.Api.Controllers
@@ -15,9 +19,14 @@ namespace Computer_Accessories_Shop.Api.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService ProductService;
-        public ProductController(IProductService ProductService)
+        private readonly IOrderService orderService;
+        private readonly UserManager<User> userManager;
+
+        public ProductController(IProductService ProductService,IOrderService orderService, UserManager<User> userManager)
         {
             this.ProductService = ProductService;
+            this.orderService = orderService;
+            this.userManager = userManager;
         }
 
         public IActionResult Index(int page = 1, int pageSize = 9, int? ProductCategoryId = null)
@@ -139,19 +148,39 @@ namespace Computer_Accessories_Shop.Api.Controllers
 
             return View(products);
         }
+        [Authorize]
         public IActionResult CheckOut()
         {
             List<Product> products = new List<Product>();
 
+
+
             string PrevValue = GetCoockie("cart");
             if (PrevValue != null)
             {
+                Order order = new Order();
+                decimal totalPrice = 0;
+                int Quality = 0;
+
                 var PrevList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(PrevValue);
 
                 for (int i = 0; i < PrevList.Count; i++)
                 {
+                    Quality += 1;
                     var product = ProductService.GetById(PrevList[i]);
+                    totalPrice +=product.Price;
                     products.Add(product);
+                }
+
+                order.Price = totalPrice;
+                order.Products = products;
+                order.Quality = Quality;
+                order.OrderDate = DateTime.Now;
+                order.User_Name = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (!orderService.Create(order))
+                {
+                    throw new Exception("order not created");
                 }
 
             }

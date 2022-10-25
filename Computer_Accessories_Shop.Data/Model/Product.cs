@@ -39,5 +39,7 @@ namespace Computer_Accessories_Shop.Data.Model
         public ProductCategory ProductCategory { get; set; }
         public ICollection<ProductGallery> ProductGalleries { get; set; }
         public ICollection<ProductComment> ProductComments { get; set; }
+        public int Order_Id { get; set; }
+        public Order Order { get; set; }
     }
 }

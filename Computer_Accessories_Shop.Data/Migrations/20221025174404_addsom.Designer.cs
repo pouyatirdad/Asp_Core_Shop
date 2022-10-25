@@ -4,14 +4,16 @@ using Computer_Accessories_Shop.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Computer_Accessories_Shop.Data.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221025174404_addsom")]
+    partial class addsom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,8 +37,8 @@ namespace Computer_Accessories_Shop.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("User_Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("User_Id")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -64,8 +66,8 @@ namespace Computer_Accessories_Shop.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("User_Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("User_Id")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

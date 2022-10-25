@@ -1,4 +1,5 @@
 using Computer_Accessories_Shop.Data.Context;
+using Computer_Accessories_Shop.Data.Model;
 using Computer_Accessories_Shop.Service.Repository;
 using Computer_Accessories_Shop.Service.Service;
 using Microsoft.AspNetCore.Builder;
@@ -35,7 +36,7 @@ namespace Computer_Accessories_Shop_Site_
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<MyDbContext>()
                 .AddDefaultTokenProviders();
 
