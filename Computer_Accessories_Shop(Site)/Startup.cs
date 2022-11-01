@@ -44,6 +44,9 @@ namespace Computer_Accessories_Shop_Site_
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ILabelService, LabelService>();
             services.AddScoped<IProductCommentService, ProductCommentService>();
             services.AddScoped<IProductGalleryService, ProductGalleryService>();
 

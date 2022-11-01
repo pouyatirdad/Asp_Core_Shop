@@ -1,17 +1,9 @@
 ﻿
-@model IEnumerable<Computer_Accessories_Shop.Data.Model.Product>
+@model Computer_Accessories_Shop.Data.Model.Order
 
 @{
-	ViewData["Title"] = "فاکتور";
-	Layout = "../shared/_layout.cshtml";
-	var totalPrice = 0.0;
-}
-
-@if(Model.Any()){
-    foreach (var item in Model)
-    {
-        totalPrice += item.Price;
-    }
+    ViewData["Title"] = "فاکتور";
+    Layout = "../shared/_layout.cshtml";
 }
 
         <main class="main">
@@ -34,10 +26,10 @@
 
                         سفارش شما 
                         با تعداد
-                        @Model.Count()
+                        @Model.Quality
                         کالا
                         و قیمت
-                        @totalPrice
+                        @Model.Price
                         ثبت شد.
                         لطفا در زمانی دیگر پرداخت کنید.
 

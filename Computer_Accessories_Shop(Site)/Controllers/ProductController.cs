@@ -22,7 +22,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
         private readonly IOrderService orderService;
         private readonly UserManager<User> userManager;
 
-        public ProductController(IProductService ProductService,IOrderService orderService, UserManager<User> userManager)
+        public ProductController(IProductService ProductService, IOrderService orderService, UserManager<User> userManager)
         {
             this.ProductService = ProductService;
             this.orderService = orderService;
@@ -55,7 +55,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
         public IActionResult SearchResult(string txtstring)
         {
             ViewBag.searchString = txtstring;
-            var products = ProductService.GetAll().Where(x=>x.Title.Contains(txtstring)).ToList();
+            var products = ProductService.GetAll().Where(x => x.Title.Contains(txtstring)).ToList();
 
             return View(products);
         }
@@ -92,7 +92,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
                 return true;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -149,7 +149,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
             return View(products);
         }
         [Authorize]
-        public IActionResult CheckOut()
+        public async Task<IActionResult> CheckOut()
         {
             List<Product> products = new List<Product>();
 
@@ -168,45 +168,60 @@ namespace Computer_Accessories_Shop.Api.Controllers
                 {
                     Quality += 1;
                     var product = ProductService.GetById(PrevList[i]);
-                    totalPrice +=product.Price;
+                    totalPrice += product.Price;
                     products.Add(product);
+                }
+
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var user = await userManager.FindByIdAsync(userId);
+
+                if (user.Score >= 1000)
+                {
+                    totalPrice -= 100000;
+                    user.Score -= 1000;
+                }
+                else if (user.Score >= 200)
+                {
+                    totalPrice -= 20000;
+                    user.Score -= 200;
+                }
+                else if (user.Score >= 100)
+                {
+                    totalPrice -= 10000;
+                    user.Score -= 100;
                 }
 
                 order.Price = totalPrice;
                 order.Products = products;
                 order.Quality = Quality;
                 order.OrderDate = DateTime.Now;
-                order.User_Name = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                order.User_Name = userId;
 
                 if (!orderService.Create(order))
                 {
                     throw new Exception("order not created");
                 }
 
+                user.Score += 10;
+
+                var result = await userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                    throw new Exception("user not update");
+
+                ViewBag.totalPrice = totalPrice;
+                ViewBag.orderId = order.Id;
             }
 
             return View(products);
         }
         [HttpPost]
-        public IActionResult ShowFactor()
+        public IActionResult ShowFactor(int orderId)
         {
-            List<Product> products = new List<Product>();
-
-            string PrevValue = GetCoockie("cart");
-            if (PrevValue != null)
-            {
-                var PrevList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<int>>(PrevValue);
-
-                for (int i = 0; i < PrevList.Count; i++)
-                {
-                    var product = ProductService.GetById(PrevList[i]);
-                    products.Add(product);
-                }
-
-            }
+            var order =orderService.GetById(orderId);
 
             Response.Cookies.Delete("cart");
-            return View(products);
+            return View(order);
         }
     }
 }

@@ -1,0 +1,13 @@
+﻿@model List<Computer_Accessories_Shop.Api.ViewModel.Account.UserWIthScore>
+
+
+<ul>
+	@foreach (var user in Model)
+	{
+		<li>
+			@user.Email
+			-
+			@user.Score
+		</li>
+	}
+</ul>

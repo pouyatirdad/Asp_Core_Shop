@@ -1,22 +1,24 @@
 ﻿using Computer_Accessories_Shop.Api.ViewModel.Account;
+using Computer_Accessories_Shop.Data.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Computer_Accessories_Shop.Api.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<User> signInManager;
 
         public AccountController
             (
-            UserManager<IdentityUser> userManager,
+            UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
-            SignInManager<IdentityUser> signInManager
+            SignInManager<User> signInManager
             )
         {
             this.userManager = userManager;
@@ -57,7 +59,7 @@ namespace Computer_Accessories_Shop.Api.Controllers
                 if (CheckUserExist != null)
                     return RedirectToAction("login");
 
-                var user = new IdentityUser()
+                var user = new User()
                 {
                     UserName = model.UserName,
                     Email = model.Email,
@@ -118,7 +120,12 @@ namespace Computer_Accessories_Shop.Api.Controllers
                 if (result.Succeeded == false)
                     return RedirectToAction("login");
 
-                return RedirectToAction("login");
+                user.Score += 70;
+
+                if (!userManager.UpdateAsync(user).Result.Succeeded)
+                    return RedirectToAction("login");
+
+                return RedirectToAction("index", "home");
             }
 
             return RedirectToAction("login");

@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <Folder Include="UploadedFiles\Images\" />
+    <Folder Include="UploadedFiles\Images\" />
+    <Folder Include="UploadedFiles\Temp\" />
     <Folder Include="UploadedFiles\Temp\" />
   </ItemGroup>
 
