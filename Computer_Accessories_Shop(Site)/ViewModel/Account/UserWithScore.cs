@@ -5,8 +5,8 @@ namespace Computer_Accessories_Shop.Api.ViewModel.Account
 {
     public class UserWIthScore
     {
-        [Display(Name = "ایمیل")]
-        public string Email { get; set; }
+        [Display(Name = "نام کاربری")]
+        public string UserName { get; set; }
         [Display(Name = "امتیاز")]
         public int Score { get; set; }
     }

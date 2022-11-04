@@ -26,28 +26,31 @@
 
 	<style>
 		#menu > ul {
-		font-family: Arial, Verdana;
-		font-size: 14px;
-		margin: 0;
-		padding: 0;
-		list-style: none;
+			font-family: Arial, Verdana;
+			font-size: 14px;
+			margin: 0;
+			padding: 0;
+			list-style: none;
 			position: fixed;
 			background: #2c5463;
 			height: 100vh;
 			right: 0px;
 			display: flex;
 			flex-direction: column;
-			width:12vw;
-			text-align:right;
+			width: 12vw;
+			text-align: right;
 		}
-		#menu > ul li {
-			display: block;
-			position: relative;
-			float: left;
-		}
+
+			#menu > ul li {
+				display: block;
+				position: relative;
+				float: left;
+			}
+
 		#menu > li ul {
 			display: none;
 		}
+
 		#menu > ul li a {
 			display: block;
 			text-decoration: none;
@@ -58,42 +61,54 @@
 			margin-left: 1px;
 			white-space: nowrap;
 		}
-		#menu > ul li a:hover {
-			background: #617F8A;
-		}
+
+			#menu > ul li a:hover {
+				background: #617F8A;
+			}
+
 		#menu > li:hover ul {
 			display: block;
 			position: absolute;
 		}
+
 		#menu > li:hover li {
 			float: none;
 			font-size: 11px;
 		}
+
 		#menu > li:hover a {
 			background: #617F8A;
 		}
+
 		#menu > li:hover li a:hover {
 			background: #95A9B1;
 		}
-		.datas{
-			width:88vw;
-			height:100vh;
-			float:left;
+
+		.datas {
+			width: 88vw;
+			height: 100vh;
+			float: left;
 		}
 	</style>
 
 </head>
 
-<body>        
+<body>
 	<div id="menu">
-	<ul >
-	<li><a href="/">بازگشت به سایت</a>
-	</li>
-	<li><a href="/admin/">داشبورد</a>
-	</li>
-	<li><a href="/admin/productcategory">دسته بندی محصولات</a> 
-	</li>
-	</ul>
+		<ul>
+			<li>
+				<a href="/">بازگشت به سایت</a>
+			</li>
+			@if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Programmer"))
+			{
+				<li>
+					<a href="/admin/">داشبورد</a>
+				</li>
+				<li>
+					<a href="/admin/productcategory">دسته بندی محصولات</a>
+				</li>
+			}
+		</ul>
 	</div>
 
 	<div class="datas py-3">

@@ -1,13 +1,39 @@
 ﻿@model List<Computer_Accessories_Shop.Api.ViewModel.Account.UserWIthScore>
 
 
-<ul>
-	@foreach (var user in Model)
-	{
-		<li>
-			@user.Email
-			-
-			@user.Score
-		</li>
-	}
-</ul>
+<div class="container">
+	<div class="heading heading-center mb-3">
+		<h2 class="title text-center">کاربران برتر</h2>
+	</div>
+
+	<div class="tab-content">
+
+		<div class="products">
+			<div class="row justify-content-center">
+
+				<table class="table w-50 text-right">
+					<thead>
+						<tr>
+							<th scope="col">نام</th>
+							<th scope="col">امتیاز</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var user in Model.OrderByDescending(x=>x.Score).Take(3))
+						{
+							<tr>
+								<td>
+									@user.UserName
+								</td>
+								<td>
+									@user.Score
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</div>

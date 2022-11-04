@@ -1,0 +1,52 @@
+﻿@model Computer_Accessories_Shop.Data.Model.User
+
+@{
+	ViewData["Title"] = "پنل کاربری";
+	Layout = "../shared/_AdminLayout.cshtml";
+}
+
+
+<h4 class="d-flex justify-content-center align-items-center text-center">
+
+	خوش آمدید
+
+</h4>
+
+
+<div class="container">
+	<div class="heading heading-center mb-3">
+		<h2 class="title text-center">اطلاعات کاربری</h2>
+	</div>
+
+	<div class="tab-content">
+
+		<div class="products">
+			<div class="row justify-content-center">
+
+				<table class="table w-50 text-right">
+					<thead>
+						<tr>
+							<th scope="col">نام</th>
+							<th scope="col">ایمیل</th>
+							<th scope="col">امتیاز</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								@Model.UserName
+							</td>
+							<td>
+								@Model.Email
+							</td>
+							<td>
+								@Model.Score
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</div>

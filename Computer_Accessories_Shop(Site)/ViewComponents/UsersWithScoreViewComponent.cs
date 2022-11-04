@@ -29,7 +29,7 @@ namespace Computer_Accessories_Shop_Site_.ViewComponents
             {
                 model.Add(new UserWIthScore
                 {
-                    Email = user.Email,
+                    UserName = user.UserName,
                     Score = user.Score
                 }
                 );
