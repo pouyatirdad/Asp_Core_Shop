@@ -14,6 +14,7 @@ namespace Computer_Accessories_Shop.Data.Model
         public string Name { get; set; }
         public string Family { get; set; }
         public int Score { get; set; }
+        public DateTime LoginDate { get; set; }
 
         public ICollection<Label> Labels { get; set; }
         public ICollection<Order> Orders { get; set; }

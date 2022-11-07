@@ -3,6 +3,7 @@ using Computer_Accessories_Shop.Data.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -120,7 +121,11 @@ namespace Computer_Accessories_Shop.Api.Controllers
                 if (result.Succeeded == false)
                     return RedirectToAction("login");
 
-                user.Score += 70;
+                if (DateTime.Compare(user.LoginDate.AddDays(7),DateTime.Now) < 0 )
+                {
+                    user.LoginDate = DateTime.Now;
+                    user.Score += 70;
+                }
 
                 if (!userManager.UpdateAsync(user).Result.Succeeded)
                     return RedirectToAction("login");
