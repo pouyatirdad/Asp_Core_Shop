@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Computer_Accessories_Shop_Site_.ViewComponents
 {
@@ -25,7 +26,7 @@ namespace Computer_Accessories_Shop_Site_.ViewComponents
 
             var model = new List<UserWIthScore>();
 
-            foreach (var user in users)
+            foreach (var user in users.Where(x => x.UserName.ToLower() != "improgrammer"))
             {
                 model.Add(new UserWIthScore
                 {
